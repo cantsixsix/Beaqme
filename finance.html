@@ -5,103 +5,405 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beaqme Finance | Market Intelligence</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <style>
         :root {
-            /* Palette Dark Premium */
-            --bg-app: #0f1115;
-            --bg-sidebar: #090a0d;
-            --bg-card: #16191d;
-            --bg-hover: #1e2229;
-            --border: #252a33;
+            /* Neobrutalist Color Palette */
+            --bg-app: #f0f0f0;
+            --bg-sidebar: #ffffff;
+            --bg-card: #ffffff;
+            --bg-hover: #e8e8e8;
+            --border: #000000;
 
-            --text-main: #e1e3e6;
-            --text-muted: #848e9c;
+            --text-main: #000000;
+            --text-muted: #333333;
 
-            /* Finance Colors */
-            --up: #00c087;      /* Green */
-            --down: #fd4d4d;    /* Red */
-            --accent: #3772ff;  /* Brand Blue */
-            --gold: #ffb119;    /* Gold/Warning */
+            /* Vibrant Finance Colors */
+            --up: #00C87A;      /* Neon Green */
+            --down: #F6465D;    /* Shock Red */
+            --accent: #3772FF;  /* Electric Blue */
+            --gold: #FFB119;    /* Gold */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg-app); color: var(--text-main); font-family: 'Inter', sans-serif; height: 100vh; display: flex; overflow: hidden; }
+        body { 
+            background: var(--bg-app); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            height: 100vh; 
+            display: flex; 
+            overflow: hidden; 
+        }
 
         /* Typography Utilities */
         .num { font-family: 'Roboto Mono', monospace; }
-        .text-up { color: var(--up); }
-        .text-down { color: var(--down); }
+        .text-up { color: var(--up); font-weight: 800; }
+        .text-down { color: var(--down); font-weight: 800; }
         .text-muted { color: var(--text-muted); }
 
         /* --- SIDEBAR --- */
-        .sidebar { width: 240px; background: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; transition: width 0.3s; }
-        .logo { height: 64px; display: flex; align-items: center; padding: 0 24px; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; border-bottom: 1px solid var(--border); color: #fff; gap: 8px; }
-        .nav { padding: 20px 12px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+        .sidebar { 
+            width: 260px; 
+            background: var(--bg-sidebar); 
+            border: 4px solid #000; 
+            display: flex; 
+            flex-direction: column; 
+            flex-shrink: 0; 
+            transition: width 0.3s; 
+            box-shadow: 6px 6px 0px #000;
+            margin-right: 10px;
+        }
+        .logo { 
+            height: 70px; 
+            display: flex; 
+            align-items: center; 
+            padding: 0 20px; 
+            font-weight: 900; 
+            font-size: 1.3rem; 
+            letter-spacing: -0.5px; 
+            border-bottom: 4px solid #000; 
+            color: #000; 
+            gap: 10px; 
+            text-transform: uppercase;
+        }
+        .nav { 
+            padding: 20px 12px; 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+        }
 
-        .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 8px; color: var(--text-muted); cursor: pointer; transition: 0.2s; font-size: 0.9rem; font-weight: 500; text-decoration: none; }
-        .nav-item:hover, .nav-item.active { background: var(--bg-hover); color: #fff; }
-        .nav-item.active { border-left: 3px solid var(--accent); }
-        .nav-category { padding: 20px 12px 10px 12px; font-size: 0.75rem; color: #555; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-item { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            padding: 14px; 
+            border-radius: 0px; 
+            color: #000; 
+            cursor: pointer; 
+            transition: 0.15s; 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            text-decoration: none; 
+            border: 3px solid transparent;
+        }
+        .nav-item:hover { 
+            background: var(--accent); 
+            color: #fff; 
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0px #000;
+            transform: translate(-2px, -2px);
+        }
+        .nav-item.active { 
+            background: var(--accent); 
+            color: #fff; 
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0px #000;
+        }
+        .nav-category { 
+            padding: 20px 12px 10px 12px; 
+            font-size: 0.75rem; 
+            color: #000; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+        }
 
         /* --- MAIN CONTENT --- */
-        .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .main { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden; 
+            padding: 10px;
+        }
 
         /* Top Bar */
-        .topbar { height: 64px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; background: var(--bg-app); }
-        .search-box { display: flex; align-items: center; background: var(--bg-card); padding: 8px 15px; border-radius: 8px; border: 1px solid var(--border); width: 300px; color: var(--text-muted); gap: 10px; }
-        .search-box input { background: transparent; border: none; outline: none; color: #fff; width: 100%; }
-        .user-profile { display: flex; align-items: center; gap: 15px; }
-        .avatar { width: 36px; height: 36px; background: #252a33; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent); font-weight: bold; border: 1px solid var(--border); }
+        .topbar { 
+            height: 70px; 
+            border: 4px solid #000; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 25px; 
+            background: #fff; 
+            box-shadow: 6px 6px 0px #000;
+            margin-bottom: 20px;
+        }
+        .search-box { 
+            display: flex; 
+            align-items: center; 
+            background: #f0f0f0; 
+            padding: 10px 15px; 
+            border: 3px solid #000; 
+            width: 320px; 
+            color: #000; 
+            gap: 10px; 
+            font-weight: 700;
+        }
+        .search-box input { 
+            background: transparent; 
+            border: none; 
+            outline: none; 
+            color: #000; 
+            width: 100%; 
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .user-profile { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+        .avatar { 
+            width: 42px; 
+            height: 42px; 
+            background: var(--accent); 
+            border-radius: 0px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #fff; 
+            font-weight: 900; 
+            border: 3px solid #000;
+            box-shadow: 3px 3px 0px #000;
+        }
 
         /* Dashboard Grid */
-        .content-scroll { flex: 1; overflow-y: auto; padding: 30px; }
-        .grid-container { display: grid; grid-template-columns: 3fr 1fr; gap: 30px; max-width: 1600px; margin: 0 auto; }
+        .content-scroll { 
+            flex: 1; 
+            overflow-y: auto; 
+            padding: 10px 10px 30px 0;
+        }
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: 3fr 1fr; 
+            gap: 25px; 
+            max-width: 1600px; 
+            margin: 0 auto; 
+        }
 
         /* Market Overview Cards */
-        .overview-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
-        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; position: relative; }
-        .card h3 { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; font-weight: 500; }
-        .big-val { font-size: 1.8rem; font-weight: 700; margin-bottom: 5px; }
+        .overview-cards { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; 
+            margin-bottom: 25px; 
+        }
+        .card { 
+            background: var(--bg-card); 
+            border: 4px solid #000; 
+            border-radius: 0px; 
+            padding: 20px; 
+            position: relative; 
+            box-shadow: 6px 6px 0px #000;
+            transition: all 0.15s ease;
+        }
+        .card:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 9px 9px 0px #000;
+        }
+        .card h3 { 
+            font-size: 0.85rem; 
+            color: #000; 
+            margin-bottom: 8px; 
+            font-weight: 900; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .big-val { 
+            font-size: 2rem; 
+            font-weight: 900; 
+            margin-bottom: 8px; 
+            color: #000;
+        }
 
         /* Asset Table */
-        .table-container { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-        .table-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .tabs { display: flex; gap: 20px; }
-        .tab { cursor: pointer; padding-bottom: 5px; color: var(--text-muted); font-size: 0.9rem; font-weight: 600; }
-        .tab.active { color: #fff; border-bottom: 2px solid var(--accent); }
+        .table-container { 
+            background: var(--bg-card); 
+            border: 4px solid #000; 
+            border-radius: 0px; 
+            overflow: hidden; 
+            box-shadow: 6px 6px 0px #000;
+        }
+        .table-header { 
+            padding: 20px; 
+            border-bottom: 4px solid #000; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            background: #f8f8f8;
+        }
+        .tabs { 
+            display: flex; 
+            gap: 5px; 
+        }
+        .tab { 
+            cursor: pointer; 
+            padding: 10px 20px; 
+            color: #000; 
+            font-size: 0.9rem; 
+            font-weight: 800; 
+            border: 3px solid transparent;
+            text-transform: uppercase;
+        }
+        .tab.active { 
+            color: #fff; 
+            background: var(--accent);
+            border: 3px solid #000;
+            box-shadow: 3px 3px 0px #000;
+        }
+        .tab:hover:not(.active) {
+            background: #e0e0e0;
+            border: 3px solid #000;
+        }
 
-        table { width: 100%; border-collapse: collapse; }
-        th { text-align: left; padding: 15px 20px; color: var(--text-muted); font-size: 0.8rem; border-bottom: 1px solid var(--border); font-weight: 500; }
-        td { padding: 15px 20px; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
-        tr:last-child td { border-bottom: none; }
-        tr:hover { background: var(--bg-hover); }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+        }
+        th { 
+            text-align: left; 
+            padding: 18px 20px; 
+            color: #000; 
+            font-size: 0.8rem; 
+            border-bottom: 4px solid #000; 
+            font-weight: 900; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #f0f0f0;
+        }
+        td { 
+            padding: 18px 20px; 
+            border-bottom: 3px solid #000; 
+            font-size: 0.95rem; 
+            font-weight: 700;
+        }
+        tr:last-child td { 
+            border-bottom: none; 
+        }
+        tr:hover { 
+            background: #f5f5f5; 
+        }
 
-        .asset-icon { width: 32px; height: 32px; border-radius: 50%; margin-right: 12px; vertical-align: middle; }
+        .asset-icon { 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 0px; 
+            margin-right: 12px; 
+            vertical-align: middle; 
+            border: 3px solid #000;
+            background: #fff;
+            padding: 2px;
+        }
 
-        .btn-small { padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: #fff; cursor: pointer; font-size: 0.8rem; transition: 0.2s; }
-        .btn-small:hover { border-color: var(--accent); color: var(--accent); }
-        .btn-trade { background: rgba(55, 114, 255, 0.1); color: var(--accent); border: none; font-weight: 600; }
-        .btn-trade:hover { background: var(--accent); color: #fff; }
+        .btn-small { 
+            padding: 10px 18px; 
+            border-radius: 0px; 
+            border: 3px solid #000; 
+            background: #fff; 
+            color: #000; 
+            cursor: pointer; 
+            font-size: 0.85rem; 
+            transition: 0.15s; 
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .btn-small:hover { 
+            background: var(--accent); 
+            color: #fff;
+            box-shadow: 3px 3px 0px #000;
+            transform: translate(-2px, -2px);
+        }
+        .btn-trade { 
+            background: var(--accent); 
+            color: #fff; 
+            border: 3px solid #000;
+            font-weight: 900;
+            box-shadow: 3px 3px 0px #000;
+        }
+        .btn-trade:hover { 
+            background: #000; 
+            color: #fff;
+            box-shadow: 5px 5px 0px var(--accent);
+            transform: translate(-2px, -2px);
+        }
 
         /* RIGHT PANEL: AI & Insights */
-        .right-panel { display: flex; flex-direction: column; gap: 20px; }
+        .right-panel { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 20px; 
+        }
 
-        .signal-card { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; padding: 15px; cursor: pointer; transition: 0.2s; position: relative; overflow: hidden; }
-        .signal-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-        .signal-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--text-muted); }
-        .signal-card.buy::before { background: var(--up); }
-        .signal-card.sell::before { background: var(--down); }
+        .signal-card { 
+            background: #fff; 
+            border: 4px solid #000; 
+            border-radius: 0px; 
+            padding: 18px; 
+            cursor: pointer; 
+            transition: 0.15s; 
+            position: relative; 
+            overflow: hidden; 
+            box-shadow: 5px 5px 0px #000;
+        }
+        .signal-card:hover { 
+            border-color: #000; 
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0px #000;
+        }
+        .signal-card::before { 
+            content: ''; 
+            position: absolute; 
+            left: 0; 
+            top: 0; 
+            bottom: 0; 
+            width: 8px; 
+            background: #333; 
+            border-right: 3px solid #000;
+        }
+        .signal-card.buy::before { 
+            background: var(--up); 
+        }
+        .signal-card.sell::before { 
+            background: var(--down); 
+        }
 
-        .confidence-pill { font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; background: #333; float: right; }
+        .confidence-pill { 
+            font-size: 0.75rem; 
+            padding: 5px 12px; 
+            border-radius: 0px; 
+            background: #000; 
+            color: #fff;
+            float: right; 
+            font-weight: 900;
+            text-transform: uppercase;
+            border: 2px solid #000;
+        }
 
         /* Market Sentiment Bar */
-        .sentiment-track { height: 6px; background: #333; border-radius: 3px; margin: 10px 0; overflow: hidden; display: flex; }
-        .sent-segment { height: 100%; }
+        .sentiment-track { 
+            height: 24px; 
+            background: #fff; 
+            border-radius: 0px; 
+            margin: 15px 0; 
+            overflow: hidden; 
+            display: flex; 
+            border: 3px solid #000;
+            box-shadow: 3px 3px 0px #000;
+        }
+        .sent-segment { 
+            height: 100%; 
+            border-right: 2px solid #000;
+        }
+        .sent-segment:last-child {
+            border-right: none;
+        }
 
         /* Responsive */
         @media (max-width: 1024px) {
@@ -111,7 +413,7 @@
         @media (max-width: 768px) {
             .sidebar { display: none; }
             .topbar { padding: 0 15px; }
-            .content-scroll { padding: 15px; }
+            .content-scroll { padding: 10px; }
             .search-box { display: none; }
         }
     </style>
@@ -134,7 +436,7 @@
             <a href="#" class="nav-item"><span class="material-icons-round">screen_search_desktop</span> Screener</a>
             <a href="#" class="nav-item"><span class="material-icons-round">psychology</span> Advisor Bot</a>
 
-            <div style="margin-top: auto; border-top: 1px solid var(--border); padding-top: 10px;">
+            <div style="margin-top: auto; border-top: 4px solid #000; padding-top: 15px;">
                 <a href="index.html" class="nav-item"><span class="material-icons-round">logout</span> Voltar ao Site</a>
             </div>
         </div>
@@ -142,13 +444,13 @@
 
     <main class="main">
         <header class="topbar">
-            <h2 style="font-size: 1.1rem;">Visão Geral do Mercado</h2>
+            <h2 style="font-size: 1.3rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;">Visão Geral do Mercado</h2>
             <div class="search-box">
-                <span class="material-icons-round" style="font-size: 1.2rem;">search</span>
+                <span class="material-icons-round" style="font-size: 1.3rem; font-weight: 900;">search</span>
                 <input type="text" placeholder="Buscar ativo (ex: AAPL, BTC)...">
             </div>
             <div class="user-profile">
-                <span class="material-icons-round" style="color:var(--text-muted);">notifications</span>
+                <span class="material-icons-round" style="color:#000; font-size: 1.8rem;">notifications</span>
                 <div class="avatar">JD</div>
             </div>
         </header>
@@ -162,7 +464,7 @@
                         <div class="card">
                             <div style="display:flex; justify-content:space-between;">
                                 <h3>S&P 500</h3>
-                                <span class="num text-up" style="font-size:0.8rem;">+1.2%</span>
+                                <span class="num text-up" style="font-size:0.9rem; font-weight: 900;">+1.2%</span>
                             </div>
                             <div class="big-val num">4,780.20</div>
                             <div id="spark1" style="margin-bottom: -10px;"></div>
@@ -171,7 +473,7 @@
                         <div class="card">
                             <div style="display:flex; justify-content:space-between;">
                                 <h3>Bitcoin</h3>
-                                <span class="num text-up" style="font-size:0.8rem;" id="btcChange">--%</span>
+                                <span class="num text-up" style="font-size:0.9rem; font-weight: 900;" id="btcChange">--%</span>
                             </div>
                             <div class="big-val num" id="btcPrice">$0.00</div>
                             <div id="spark2" style="margin-bottom: -10px;"></div>
@@ -180,7 +482,7 @@
                         <div class="card">
                             <div style="display:flex; justify-content:space-between;">
                                 <h3>Ouro (Gold)</h3>
-                                <span class="num text-down" style="font-size:0.8rem;">-0.4%</span>
+                                <span class="num text-down" style="font-size:0.9rem; font-weight: 900;">-0.4%</span>
                             </div>
                             <div class="big-val num">2,045.10</div>
                             <div id="spark3" style="margin-bottom: -10px;"></div>
@@ -220,51 +522,51 @@
 
                     <div class="card">
                         <h3>Sentimento do Mercado</h3>
-                        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:10px;">
-                            <span style="font-size:1.5rem; font-weight:700; color:var(--up);">Ganância</span>
-                            <span class="num">74/100</span>
+                        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:15px;">
+                            <span style="font-size:1.6rem; font-weight:900; color:var(--up); text-transform: uppercase;">GANÂNCIA</span>
+                            <span class="num" style="font-weight: 900; font-size: 1.2rem;">74/100</span>
                         </div>
                         <div class="sentiment-track">
-                            <div class="sent-segment" style="width: 20%; background: var(--down); opacity: 0.5;"></div>
-                            <div class="sent-segment" style="width: 20%; background: var(--down); opacity: 0.2;"></div>
-                            <div class="sent-segment" style="width: 20%; background: #555; opacity: 0.2;"></div>
+                            <div class="sent-segment" style="width: 20%; background: var(--down);"></div>
+                            <div class="sent-segment" style="width: 20%; background: #FFB119;"></div>
+                            <div class="sent-segment" style="width: 20%; background: #ccc;"></div>
                             <div class="sent-segment" style="width: 40%; background: var(--up);"></div>
                         </div>
-                        <p class="text-muted" style="font-size:0.8rem; margin-top:10px;">
+                        <p style="font-size:0.85rem; margin-top:12px; font-weight: 700;">
                             Investidores estão otimistas. Cuidado com correções de curto prazo.
                         </p>
                     </div>
 
                     <div>
-                        <h3 class="text-muted" style="font-size:0.85rem; text-transform:uppercase; font-weight:700; margin-bottom:15px;">
+                        <h3 style="font-size:0.9rem; text-transform:uppercase; font-weight:900; margin-bottom:15px; letter-spacing: 1px;">
                             Recomendações IA
                         </h3>
 
                         <div class="signal-card buy">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                                <span style="font-weight:700;">NVDA</span>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                <span style="font-weight:900; font-size: 1.1rem;">NVDA</span>
                                 <span class="confidence-pill text-up">92% Conf.</span>
                             </div>
-                            <p style="font-size:0.85rem; color:#ccc;">Rompimento de bandeira de alta. Alvo em $135.</p>
-                            <div style="margin-top:8px; font-size:0.75rem;" class="text-up num">BUY SIGNAL</div>
+                            <p style="font-size:0.9rem; color:#333; font-weight: 700;">Rompimento de bandeira de alta. Alvo em $135.</p>
+                            <div style="margin-top:10px; font-size:0.85rem; font-weight: 900;" class="text-up num">BUY SIGNAL</div>
                         </div>
 
                         <div class="signal-card sell">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                                <span style="font-weight:700;">EUR/USD</span>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                <span style="font-weight:900; font-size: 1.1rem;">EUR/USD</span>
                                 <span class="confidence-pill text-down">78% Conf.</span>
                             </div>
-                            <p style="font-size:0.85rem; color:#ccc;">Resistência forte em 1.1050. Divergência no RSI.</p>
-                            <div style="margin-top:8px; font-size:0.75rem;" class="text-down num">SELL SIGNAL</div>
+                            <p style="font-size:0.9rem; color:#333; font-weight: 700;">Resistência forte em 1.1050. Divergência no RSI.</p>
+                            <div style="margin-top:10px; font-size:0.85rem; font-weight: 900;" class="text-down num">SELL SIGNAL</div>
                         </div>
 
                         <div class="signal-card buy">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
-                                <span style="font-weight:700;">PETR4</span>
-                                <span class="confidence-pill text-up">65% Conf.</span>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                <span style="font-weight:900; font-size: 1.1rem;">PETR4</span>
+                                <span class="confidence-pill" style="background: var(--gold); color: #000;">65% Conf.</span>
                             </div>
-                            <p style="font-size:0.85rem; color:#ccc;">Pagamento de dividendos próximo. Fluxo comprador alto.</p>
-                            <div style="margin-top:8px; font-size:0.75rem;" class="text-up num">ACCUMULATE</div>
+                            <p style="font-size:0.9rem; color:#333; font-weight: 700;">Pagamento de dividendos próximo. Fluxo comprador alto.</p>
+                            <div style="margin-top:10px; font-size:0.85rem; font-weight: 900; color: var(--gold);" class="num">ACCUMULATE</div>
                         </div>
 
                     </div>
@@ -303,17 +605,17 @@
                 <tr id="row-${asset.id}">
                     <td>
                         <div style="display:flex; align-items:center;">
-                            <img src="${asset.img}" class="asset-icon" style="background:#fff; padding:2px;">
+                            <img src="${asset.img}" class="asset-icon">
                             <div>
-                                <div style="font-weight:600;">${asset.ticker}</div>
-                                <div style="font-size:0.75rem; color:#666;">${asset.name}</div>
+                                <div style="font-weight:900; font-size: 1rem;">${asset.ticker}</div>
+                                <div style="font-size:0.8rem; color:#333; font-weight: 700;">${asset.name}</div>
                             </div>
                         </div>
                     </td>
-                    <td class="num" style="font-weight:600;">${displayPrice}</td>
-                    <td class="num ${colorClass}">${sign}${asset.change.toFixed(2)}%</td>
-                    <td class="num text-muted">${asset.vol}</td>
-                    <td class="num ${scoreColor}" style="font-weight:bold;">${asset.score}/10</td>
+                    <td class="num" style="font-weight:900; font-size: 1.1rem;">${displayPrice}</td>
+                    <td class="num ${colorClass}" style="font-size: 1.1rem;">${sign}${asset.change.toFixed(2)}%</td>
+                    <td class="num text-muted" style="font-weight: 800;">${asset.vol}</td>
+                    <td class="num ${scoreColor}" style="font-weight:900; font-size: 1.1rem;">${asset.score}/10</td>
                     <td><button class="btn-small btn-trade">Trade</button></td>
                 </tr>
                 `;
@@ -384,14 +686,14 @@
         // 5. SPARKLINES (Gráficos Pequenos)
         const sparkOptions = {
             chart: { type: 'area', height: 50, sparkline: { enabled: true } },
-            stroke: { curve: 'smooth', width: 2 },
-            fill: { opacity: 0.2 },
+            stroke: { curve: 'smooth', width: 3 },
+            fill: { opacity: 0.3 },
             tooltip: { fixed: { enabled: false }, x: { show: false }, y: { title: { formatter: () => '' } }, marker: { show: false } }
         };
 
-        new ApexCharts(document.querySelector("#spark1"), { ...sparkOptions, series: [{ data: [10,12,14,13,15,16,18,17,19] }], colors: ['#00c087'] }).render();
-        new ApexCharts(document.querySelector("#spark2"), { ...sparkOptions, series: [{ data: [40,42,41,44,43,46,45,48,50] }], colors: ['#3772ff'] }).render();
-        new ApexCharts(document.querySelector("#spark3"), { ...sparkOptions, series: [{ data: [80,78,75,76,74,72,70,71,69] }], colors: ['#fd4d4d'] }).render();
+        new ApexCharts(document.querySelector("#spark1"), { ...sparkOptions, series: [{ data: [10,12,14,13,15,16,18,17,19] }], colors: ['#00C87A'] }).render();
+        new ApexCharts(document.querySelector("#spark2"), { ...sparkOptions, series: [{ data: [40,42,41,44,43,46,45,48,50] }], colors: ['#3772FF'] }).render();
+        new ApexCharts(document.querySelector("#spark3"), { ...sparkOptions, series: [{ data: [80,78,75,76,74,72,70,71,69] }], colors: ['#F6465D'] }).render();
 
         // Init
         renderTable();
