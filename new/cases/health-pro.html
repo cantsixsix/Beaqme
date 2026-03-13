@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case: Health Pro | Beaqme</title>
+    <meta name="description" content="Case study do Health Pro - Painel de saude com habitos, metricas nutricionais e rotinas diarias.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <a href="../index.html" class="logo">Beaq<span class="accent glow">me</span></a>
+    <nav class="desktop-nav">
+        <ul>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="../index.html#cases">Cases</a></li>
+            <li><a href="../blog/">Blog</a></li>
+        </ul>
+        <div class="nav-divider"></div>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema">
+            <span class="icon icon-moon">&#9790;</span>
+            <span class="icon icon-sun">&#9728;</span>
+        </button>
+    </nav>
+    <button class="mobile-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Menu">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </button>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html" onclick="toggleMenu()">Inicio</a>
+    <a href="../index.html#cases" onclick="toggleMenu()">Cases</a>
+    <a href="../blog/" onclick="toggleMenu()">Blog</a>
+</div>
+
+<main>
+    <div class="case-hero">
+        <div class="hero-mesh"></div>
+        <div class="case-tag reveal" style="font-size:.9rem;">Mobile &middot; Saude</div>
+        <h1 class="reveal">Health Pro</h1>
+        <p class="reveal">Painel de rotina, indicadores nutricionais e acompanhamento de habitos diarios.</p>
+        <div class="screenshot reveal" style="background:linear-gradient(135deg,#1a0a10,#2d0f1e);">&#10084;&#65039; Health Dashboard Preview</div>
+    </div>
+
+    <section>
+        <div class="case-overview reveal">
+            <div class="case-overview-item">
+                <div class="label">Cliente</div>
+                <div class="value">Produto Interno</div>
+            </div>
+            <div class="case-overview-item">
+                <div class="label">Duracao</div>
+                <div class="value">5 semanas</div>
+            </div>
+            <div class="case-overview-item">
+                <div class="label">Stack</div>
+                <div class="value">JS, ApexCharts, CSS</div>
+            </div>
+            <div class="case-overview-item">
+                <div class="label">Papel</div>
+                <div class="value">Full-Stack Dev</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="case-section">
+        <h2 class="reveal">O Problema</h2>
+        <p class="reveal">Apps de saude existentes sao fragmentados: um para agua, outro para exercicio, outro para nutricao. Usuarios precisam de uma visao unificada dos seus habitos diarios sem complexidade desnecessaria.</p>
+    </div>
+
+    <div class="case-section">
+        <h2 class="reveal">A Solucao</h2>
+        <p class="reveal">Criamos um painel unico que consolida metricas de saude: agua, sono, exercicio, peso e nutricao. Design mobile-first com graficos de tendencia semanal, checklist de habitos e lembretes visuais. Tudo salvo localmente com sincronizacao futura planejada.</p>
+    </div>
+
+    <div class="case-section">
+        <h2 class="reveal">Features Principais</h2>
+        <div class="case-features">
+            <div class="case-feature reveal">
+                <div class="icon">&#128167;</div>
+                <h4>Tracker de Agua</h4>
+                <p>Registro de copos com meta diaria e progresso visual.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#127939;</div>
+                <h4>Exercicios</h4>
+                <p>Log de atividades com duracao, tipo e calorias estimadas.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#128202;</div>
+                <h4>Graficos Semanais</h4>
+                <p>Tendencia de peso, sono e atividade com ApexCharts.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#127860;</div>
+                <h4>Diario Alimentar</h4>
+                <p>Registro de refeicoes com macros e calorias.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#127769;</div>
+                <h4>Sono</h4>
+                <p>Rastreamento de horas dormidas com qualidade do sono.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#9989;</div>
+                <h4>Habitos</h4>
+                <p>Checklist diario de habitos com streak tracking.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="case-section">
+        <h2 class="reveal">Resultados</h2>
+        <div class="case-results">
+            <div class="case-result reveal">
+                <span class="number" data-count-up="85" data-prefix="+" data-suffix="%">0%</span>
+                <span class="label">Engajamento diario</span>
+            </div>
+            <div class="case-result reveal">
+                <span class="number" data-count-up="2" data-suffix="x">0x</span>
+                <span class="label">Retencao vs apps fragmentados</span>
+            </div>
+            <div class="case-result reveal">
+                <span class="number" data-count-up="30" data-suffix="s">0s</span>
+                <span class="label">Tempo de registro diario</span>
+            </div>
+            <div class="case-result reveal">
+                <span class="number" data-count-up="100" data-suffix="%">0%</span>
+                <span class="label">Mobile responsive</span>
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <div class="cta-section reveal">
+            <h2>Quer algo parecido?</h2>
+            <p>Vamos construir um app de saude ou wellness sob medida para o seu publico.</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/5511970750048" target="_blank" rel="noopener" class="btn btn-white">Falar no WhatsApp</a>
+                <a href="../tools/health.html" class="btn">Testar ferramenta</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="case-nav">
+        <a href="finance-dashboard.html">&larr; Finance Dashboard</a>
+        <a href="task-ai.html">Task AI Workspace &rarr;</a>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-bottom container">
+        <p>&copy; 2026 Beaqme Development. Feito com cafe e codigo.</p>
+    </div>
+</footer>
+
+<script src="../auth.js"></script>
+<script src="../app.js"></script>
+</body>
+</html>

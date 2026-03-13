@@ -1,1085 +1,757 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beaqme — Ecossistema Digital</title>
-    <meta name="description" content="Ecossistema digital integrado: finanças, produtividade e saúde em uma única plataforma.">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg: #050505;
-            --surface: #0a0a0a;
-            --surface-elevated: #111111;
-            --text: #ffffff;
-            --text-muted: #888888;
-            --text-subtle: #555555;
-            --accent: #7c3aed;
-            --accent-glow: rgba(124, 58, 237, 0.4);
-            --accent-secondary: #06b6d4;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --border: rgba(255, 255, 255, 0.06);
-            --border-strong: rgba(255, 255, 255, 0.12);
-            
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-        
-        /* ===== ANIMATIONS ===== */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(2deg); }
-        }
-        
-        @keyframes pulse-glow {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.05); }
-        }
-        
-        @keyframes gradient-shift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        @keyframes slide-up {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes fade-in {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .animate-slide-up {
-            animation: slide-up 0.8s var(--ease-out-expo) forwards;
-            opacity: 0;
-        }
-        
-        .animate-fade-in {
-            animation: fade-in 1s ease forwards;
-            opacity: 0;
-        }
-        
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-        .delay-5 { animation-delay: 0.5s; }
-        
-        /* ===== HEADER ===== */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 1.25rem 4%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.4s var(--ease-out-expo);
-        }
-        
-        header.scrolled {
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 4%;
-        }
-        
-        .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #fff 0%, #888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            -webkit-text-fill-color: white;
-        }
-        
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 2.5rem;
-        }
-        
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-        
-        nav a:hover {
-            color: var(--text);
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-        
-        nav a:hover::after {
-            width: 100%;
-        }
-        
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s var(--ease-out-expo);
-            border: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-        }
-        
-        .btn-primary {
-            background: var(--text);
-            color: var(--bg);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
-        }
-        
-        .btn-outline {
-            background: transparent;
-            color: var(--text);
-            border: 1px solid var(--border-strong);
-        }
-        
-        .btn-outline:hover {
-            border-color: var(--text);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .mobile-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        
-        .mobile-toggle span {
-            width: 24px;
-            height: 2px;
-            background: var(--text);
-            transition: 0.3s;
-        }
-        
-        /* ===== HERO ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 8rem 4% 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        
-        .hero-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: pulse-glow 8s ease-in-out infinite;
-        }
-        
-        .hero-orb-1 {
-            width: 600px;
-            height: 600px;
-            background: var(--accent);
-            top: -200px;
-            right: -100px;
-            animation-delay: 0s;
-        }
-        
-        .hero-orb-2 {
-            width: 500px;
-            height: 500px;
-            background: var(--accent-secondary);
-            bottom: -150px;
-            left: -100px;
-            animation-delay: -4s;
-        }
-        
-        .hero-grid {
-            position: absolute;
-            inset: 0;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
-        }
-        
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(124, 58, 237, 0.1);
-            border: 1px solid rgba(124, 58, 237, 0.3);
-            border-radius: 100px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 2rem;
-        }
-        
-        .badge-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-        
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            line-height: 1;
-            margin-bottom: 1.5rem;
-            max-width: 900px;
-        }
-        
-        .hero h1 span {
-            background: linear-gradient(135deg, #fff 0%, var(--text-muted) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .hero-subtitle {
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 3rem;
-            font-weight: 400;
-        }
-        
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .hero-stats {
-            display: flex;
-            gap: 4rem;
-            margin-top: 6rem;
-            padding-top: 3rem;
-            border-top: 1px solid var(--border);
-        }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text);
-            line-height: 1;
-        }
-        
-        .stat-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 0.5rem;
-        }
-        
-        /* ===== SECTIONS ===== */
-        section {
-            padding: 8rem 4%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .section-header {
-            text-align: center;
-            margin-bottom: 5rem;
-        }
-        
-        .section-tag {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-        
-        .section-title {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 1rem;
-            line-height: 1.1;
-        }
-        
-        .section-desc {
-            color: var(--text-muted);
-            font-size: 1.125rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* ===== APPS GRID ===== */
-        .apps-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-        
-        .app-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.5s var(--ease-out-expo);
-            position: relative;
-            group: true;
-        }
-        
-        .app-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .app-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--border-strong);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-        }
-        
-        .app-card:hover::before {
-            opacity: 1;
-        }
-        
-        .app-preview {
-            height: 200px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .app-preview-finance {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        }
-        
-        .app-preview-task {
-            background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
-        }
-        
-        .app-preview-health {
-            background: linear-gradient(135deg, #14532d 0%, #166534 100%);
-        }
-        
-        .app-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            position: relative;
-            z-index: 1;
-            transition: transform 0.5s var(--ease-spring);
-        }
-        
-        .app-card:hover .app-icon {
-            transform: scale(1.1) rotate(-5deg);
-        }
-        
-        .app-icon-finance {
-            background: linear-gradient(135deg, #3b82f6, #06b6d4);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
-        }
-        
-        .app-icon-task {
-            background: linear-gradient(135deg, #8b5cf6, #a855f7);
-            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
-        }
-        
-        .app-icon-health {
-            background: linear-gradient(135deg, #10b981, #22c55e);
-            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.3);
-        }
-        
-        .app-content {
-            padding: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .app-tag {
-            font-size: 0.6875rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-subtle);
-            margin-bottom: 0.5rem;
-        }
-        
-        .app-title {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .app-desc {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-        
-        .app-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text);
-            font-size: 0.875rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: gap 0.3s ease;
-        }
-        
-        .app-link:hover {
-            gap: 0.75rem;
-        }
-        
-        /* ===== FEATURES ===== */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-        }
-        
-        .feature-card {
-            padding: 2rem;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            transition: all 0.4s var(--ease-out-expo);
-        }
-        
-        .feature-card:hover {
-            border-color: var(--border-strong);
-            transform: translateY(-4px);
-        }
-        
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            background: var(--surface-elevated);
-            border: 1px solid var(--border);
-        }
-        
-        .feature-title {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .feature-desc {
-            font-size: 0.8125rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-        
-        /* ===== CTA SECTION ===== */
-        .cta-section {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta-container {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 32px;
-            padding: 5rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta-glow {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: var(--accent);
-            border-radius: 50%;
-            filter: blur(150px);
-            opacity: 0.15;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        .cta-title {
-            font-size: clamp(2rem, 5vw, 3rem);
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .cta-desc {
-            color: var(--text-muted);
-            font-size: 1.125rem;
-            margin-bottom: 2.5rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        /* ===== FOOTER ===== */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 4rem 4%;
-        }
-        
-        .footer-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 4rem;
-        }
-        
-        .footer-brand {
-            max-width: 300px;
-        }
-        
-        .footer-logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .footer-desc {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-        
-        .footer-col h4 {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text);
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-col a {
-            display: block;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.875rem;
-            margin-bottom: 0.75rem;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-col a:hover {
-            color: var(--text);
-        }
-        
-        .footer-bottom {
-            max-width: 1400px;
-            margin: 4rem auto 0;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .footer-copyright {
-            font-size: 0.8125rem;
-            color: var(--text-subtle);
-        }
-        
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .social-link:hover {
-            border-color: var(--border-strong);
-            color: var(--text);
-            transform: translateY(-2px);
-        }
-        
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .apps-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            nav {
-                display: none;
-            }
-            
-            .mobile-toggle {
-                display: flex;
-            }
-            
-            .hero-stats {
-                flex-direction: column;
-                gap: 2rem;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .cta-container {
-                padding: 3rem 2rem;
-            }
-            
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .footer-bottom {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-        }
-        
-        /* ===== MOBILE MENU ===== */
-        .mobile-menu {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            transform: translateX(100%);
-            transition: transform 0.5s var(--ease-out-expo);
-        }
-        
-        .mobile-menu.active {
-            transform: translateX(0);
-        }
-        
-        .mobile-menu a {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text);
-            text-decoration: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Beaqme cria produtos digitais de alto impacto com engenharia, estratégia e design de produto.">
+  <title>Beaqme | Digital Product House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f3ea;
+      --paper: #fffdf8;
+      --ink: #16130f;
+      --muted: #615b54;
+      --brand: #e85d1f;
+      --brand-soft: #ffdfce;
+      --accent: #0f8b7b;
+      --line: #1f1a15;
+      --card-shadow: 6px 6px 0 #1f1a15;
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 500px at 10% -10%, rgba(232, 93, 31, 0.16), transparent 60%),
+        radial-gradient(900px 400px at 100% 0%, rgba(15, 139, 123, 0.15), transparent 60%),
+        var(--bg);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: min(1150px, 92%);
+      margin-inline: auto;
+    }
+
+    .chip {
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      background: #fff;
+      font-weight: 600;
+    }
+
+    .chip::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 1.1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .45; transform: scale(.75); }
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(8px);
+      background: rgba(247, 243, 234, .8);
+      border-bottom: 1px solid rgba(31, 26, 21, .12);
+    }
+
+    .site-header .container {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .brand-main {
+      font-family: 'Fraunces', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -.4px;
+    }
+
+    .brand-mini {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .main-nav a {
+      text-decoration: none;
+      color: var(--ink);
+      padding: 8px 12px;
+      font-size: .92rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .main-nav a:hover {
+      background: #fff;
+    }
+
+    .btn {
+      text-decoration: none;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      padding: 11px 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: .9rem;
+      background: #fff;
+      box-shadow: var(--card-shadow);
+      transition: transform .14s ease, box-shadow .14s ease;
+    }
+
+    .btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0 #1f1a15;
+    }
+
+    .btn-primary {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .hero {
+      padding: 64px 0 44px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      margin-top: 14px;
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      letter-spacing: -.8px;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1.02;
+    }
+
+    .hero p {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      max-width: 58ch;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-stats {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stat {
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      padding: 10px;
+      background: var(--paper);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.3rem;
+      font-family: 'Fraunces', serif;
+    }
+
+    .stat span {
+      font-size: .8rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .hero-art {
+      border: 2px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--card-shadow);
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      display: grid;
+      align-content: space-between;
+      gap: 14px;
+    }
+
+    .hero-art::before,
+    .hero-art::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: .24;
+      pointer-events: none;
+    }
+
+    .hero-art::before {
+      width: 220px;
+      height: 220px;
+      background: var(--brand);
+      top: -60px;
+      right: -40px;
+    }
+
+    .hero-art::after {
+      width: 160px;
+      height: 160px;
+      background: var(--accent);
+      bottom: -50px;
+      left: -30px;
+    }
+
+    .board-preview {
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      padding: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .board-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .74rem;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .board-columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 8px;
+    }
+
+    .mini-col {
+      border: 2px solid var(--line);
+      border-radius: 10px;
+      padding: 8px;
+      background: #fffef8;
+      min-height: 125px;
+      display: grid;
+      gap: 7px;
+      align-content: start;
+    }
+
+    .mini-col span {
+      font-size: .66rem;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      font-weight: 700;
+      opacity: .78;
+    }
+
+    .mini-task {
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      padding: 7px;
+      background: #fff;
+      font-size: .7rem;
+      font-weight: 600;
+    }
+
+    .mini-task.hot { background: var(--brand-soft); }
+    .mini-task.cool { background: #daf4ef; }
+
+    .section {
+      padding: 54px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .section h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+      letter-spacing: -.4px;
+      line-height: 1.05;
+    }
+
+    .section p.lead {
+      color: var(--muted);
+      max-width: 62ch;
+    }
+
+    .services-grid,
+    .labs-grid,
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 14px;
+    }
+
+    .card {
+      border: 2px solid var(--line);
+      border-radius: 16px;
+      background: var(--paper);
+      box-shadow: var(--card-shadow);
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .card h3 {
+      font-size: 1.02rem;
+      letter-spacing: -.2px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .card .meta {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      font-size: .74rem;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      font-weight: 700;
+    }
+
+    .projects-grid .card {
+      background: #fff;
+    }
+
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      font-weight: 700;
+      background: #fff;
+    }
+
+    .tag.green { background: #daf4ef; }
+    .tag.orange { background: var(--brand-soft); }
+    .tag.yellow { background: #fff0b8; }
+
+    .cta {
+      border: 2px solid var(--line);
+      border-radius: 24px;
+      background:
+        radial-gradient(500px 220px at 20% 20%, rgba(232, 93, 31, .17), transparent 60%),
+        radial-gradient(500px 220px at 80% 80%, rgba(15, 139, 123, .2), transparent 60%),
+        #fff;
+      box-shadow: var(--card-shadow);
+      padding: 26px;
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .cta h2 {
+      font-family: 'Fraunces', serif;
+      letter-spacing: -.4px;
+      font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+      max-width: 18ch;
+      line-height: 1.05;
+    }
+
+    .cta p {
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .site-footer {
+      margin-top: 56px;
+      border-top: 2px solid rgba(31, 26, 21, .2);
+      background: #fff;
+      padding: 26px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: var(--ink);
+      font-weight: 600;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: #fff;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-art {
+        min-height: auto;
+      }
+
+      .services-grid,
+      .labs-grid,
+      .projects-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+    }
+
+    @media (max-width: 780px) {
+      .main-nav {
+        display: none;
+      }
+
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .services-grid,
+      .labs-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header id="header">
-        <a href="#" class="logo">
-            <div class="logo-icon">B</div>
-            Beaqme
-        </a>
-        
-        <nav>
-            <a href="#ecossistema">Ecossistema</a>
-            <a href="#recursos">Recursos</a>
-            <a href="#sobre">Sobre</a>
-        </nav>
-        
-        <div style="display: flex; align-items: center; gap: 1rem;">
-            <a href="finance.html" class="btn btn-outline" style="display: flex; align-items: center; gap: 0.5rem;">
-                Acessar Apps
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                </svg>
-            </a>
-            <div class="mobile-toggle" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </header>
-    
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#ecossistema" onclick="toggleMenu()">Ecossistema</a>
-        <a href="#recursos" onclick="toggleMenu()">Recursos</a>
-        <a href="#sobre" onclick="toggleMenu()">Sobre</a>
-        <a href="finance.html" class="btn btn-primary" onclick="toggleMenu()">Acessar Apps</a>
+  <header class="site-header">
+    <div class="container">
+      <a href="#" class="brand" aria-label="Beaqme Home">
+        <span class="brand-main">beaqme</span>
+        <span class="brand-mini">product house</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navegação principal">
+        <a href="#servicos">Serviços</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#labs">Labs</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <a class="btn btn-primary" href="https://wa.me/5511970750048" target="_blank" rel="noopener">Falar no WhatsApp</a>
     </div>
+  </header>
 
+  <main>
     <section class="hero">
-        <div class="hero-bg">
-            <div class="hero-orb hero-orb-1"></div>
-            <div class="hero-orb hero-orb-2"></div>
-            <div class="hero-grid"></div>
-        </div>
-        
-        <div class="badge animate-fade-in">
-            <span class="badge-dot"></span>
-            Ecossistema Digital Integrado
-        </div>
-        
-        <h1 class="animate-slide-up delay-1">
-            <span>Três apps.</span><br>
-            Uma experiência.
-        </h1>
-        
-        <p class="hero-subtitle animate-slide-up delay-2">
-            Finanças, produtividade e saúde em perfeita sincronia. 
-            Design minimalista, performance máxima.
-        </p>
-        
-        <div class="hero-cta animate-slide-up delay-3">
-            <a href="#ecossistema" class="btn btn-primary">
-                Explorar Ecossistema
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 5v14M19 12l-7 7-7-7"/>
-                </svg>
-            </a>
-            <a href="finance.html" class="btn btn-outline">
-                Ver Demonstração
-            </a>
-        </div>
-        
-        <div class="hero-stats animate-slide-up delay-4">
-            <div class="stat-item">
-                <div class="stat-value">3</div>
-                <div class="stat-label">Aplicações</div>
+      <div class="container hero-grid">
+        <div class="reveal">
+          <span class="chip">Operação ativa para novos projetos</span>
+          <h1>Transformamos ambição em produto digital que entrega resultado real.</h1>
+          <p>Unimos estratégia, UX e engenharia para lançar experiências robustas, rápidas e memoráveis. Da ideia ao crescimento, com execução ponta a ponta.</p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contato">Iniciar Projeto</a>
+            <a class="btn" href="#projetos">Ver cases</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <strong>+42</strong>
+              <span>produtos entregues</span>
             </div>
-            <div class="stat-item">
-                <div class="stat-value">100%</div>
-                <div class="stat-label">Responsivo</div>
+            <div class="stat">
+              <strong>97%</strong>
+              <span>clientes recorrentes</span>
             </div>
-            <div class="stat-item">
-                <div class="stat-value">60</div>
-                <div class="stat-label">FPS Animations</div>
+            <div class="stat">
+              <strong>6x</strong>
+              <span>tempo médio de aceleração</span>
             </div>
-            <div class="stat-item">
-                <div class="stat-value">0</div>
-                <div class="stat-label">Dependências</div>
-            </div>
+          </div>
         </div>
+
+        <aside class="hero-art reveal" aria-label="Preview de ambiente de produto">
+          <div class="board-preview">
+            <div class="board-head">
+              <span>Squad Board</span>
+              <span class="chip" style="padding:4px 10px;font-size:.68rem;">sync live</span>
+            </div>
+            <div class="board-columns">
+              <div class="mini-col">
+                <span>To do</span>
+                <div class="mini-task hot">Checkout antifraude</div>
+                <div class="mini-task">Fluxo onboarding</div>
+              </div>
+              <div class="mini-col">
+                <span>Build</span>
+                <div class="mini-task cool">Módulo analytics</div>
+                <div class="mini-task">Integração CRM</div>
+              </div>
+              <div class="mini-col">
+                <span>Done</span>
+                <div class="mini-task">Release v2.4</div>
+                <div class="mini-task">QA regressão</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="background:#fff;">
+            <h3>Arquitetura para escalar</h3>
+            <p>Estruturamos produtos com base sólida para crescer sem retrabalho.</p>
+            <div class="meta">
+              <span>Backend + Cloud</span>
+              <span>SLAs definidos</span>
+            </div>
+          </div>
+        </aside>
+      </div>
     </section>
 
-    <section id="ecossistema">
-        <div class="section-header">
-            <div class="section-tag">Ecossistema</div>
-            <h2 class="section-title">Três soluções. Um propósito.</h2>
-            <p class="section-desc">Cada aplicação foi cuidadosamente projetada para oferecer a melhor experiência em sua categoria.</p>
+    <section id="servicos" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Serviços de produto e engenharia para quem quer crescer com consistência.</h2>
+          <p class="lead">Da descoberta ao pós-lançamento. Processos enxutos, decisões orientadas por dados e foco total em impacto de negócio.</p>
         </div>
-        
-        <div class="apps-grid">
-            <article class="app-card" data-app="finance">
-                <div class="app-preview app-preview-finance">
-                    <div class="app-icon app-icon-finance">📈</div>
-                </div>
-                <div class="app-content">
-                    <div class="app-tag">Fintech / Analytics</div>
-                    <h3 class="app-title">Beaqme Finance</h3>
-                    <p class="app-desc">Dashboard profissional de mercado financeiro com dados em tempo real, gráficos interativos e análise técnica.</p>
-                    <a href="finance.html" class="app-link">
-                        Acessar demo
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
-            </article>
-            
-            <article class="app-card" data-app="task">
-                <div class="app-preview app-preview-task">
-                    <div class="app-icon app-icon-task">⚡</div>
-                </div>
-                <div class="app-content">
-                    <div class="app-tag">Produtividade / SaaS</div>
-                    <h3 class="app-title">Task AI Flow</h3>
-                    <p class="app-desc">Gerenciamento de tarefas em Kanban com priorização inteligente, sprints e métricas de produtividade.</p>
-                    <a href="task.html" class="app-link">
-                        Acessar demo
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
-            </article>
-            
-            <article class="app-card" data-app="health">
-                <div class="app-preview app-preview-health">
-                    <div class="app-icon app-icon-health">💪</div>
-                </div>
-                <div class="app-content">
-                    <div class="app-tag">Health / Wellness</div>
-                    <h3 class="app-title">Beaqme Health</h3>
-                    <p class="app-desc">Monitoramento completo de saúde: nutrição, hidratação, passos, IMC e conquistas gamificadas.</p>
-                    <a href="health.html" class="app-link">
-                        Acessar demo
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
-            </article>
+
+        <div class="services-grid">
+          <article class="card reveal">
+            <h3>Product Discovery</h3>
+            <p>Mapeamento de oportunidades, priorização e definição do roadmap de maior retorno.</p>
+            <div class="meta"><span>Estratégia</span><span>Workshops</span></div>
+          </article>
+          <article class="card reveal">
+            <h3>UX/UI Systems</h3>
+            <p>Interfaces de alto desempenho com design system consistente e identidade marcante.</p>
+            <div class="meta"><span>UX</span><span>Design Ops</span></div>
+          </article>
+          <article class="card reveal">
+            <h3>Software Engineering</h3>
+            <p>Arquitetura, frontend e backend com qualidade de código, automação e observabilidade.</p>
+            <div class="meta"><span>Web + Cloud</span><span>CI/CD</span></div>
+          </article>
         </div>
+      </div>
     </section>
 
-    <section id="recursos">
-        <div class="section-header">
-            <div class="section-tag">Tecnologia</div>
-            <h2 class="section-title">Feito para performar</h2>
-            <p class="section-desc">Arquitetura moderna e otimizações que garantem a melhor experiência.</p>
+    <section id="projetos" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Projetos Beaqme em operação</h2>
+          <p class="lead">Produtos internos e ambientes de demonstração com foco em dados, produtividade e experiência.</p>
         </div>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Ultra Rápido</h3>
-                <p class="feature-desc">Carregamento instantâneo com lazy loading e otimização de assets.</p>
+
+        <div class="projects-grid">
+          <article class="card reveal">
+            <div class="project-top">
+              <h3>Task AI Workspace</h3>
+              <span class="tag orange">Gestão</span>
             </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3 class="feature-title">100% Responsivo</h3>
-                <p class="feature-desc">Experiência perfeita em qualquer dispositivo, do mobile ao desktop.</p>
+            <p>Board colaborativo com fluxo de sprint, prioridade e decisões mais rápidas.</p>
+            <a class="btn" href="task.html">Abrir workspace</a>
+          </article>
+
+          <article class="card reveal">
+            <div class="project-top">
+              <h3>Finance Dashboard</h3>
+              <span class="tag green">Dados</span>
             </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎨</div>
-                <h3 class="feature-title">Design System</h3>
-                <p class="feature-desc">Identidade visual consistente e componentes reutilizáveis.</p>
+            <p>Ambiente para leitura de mercado, sinais e acompanhamento de ativos em tempo real.</p>
+            <a class="btn" href="finance.html">Abrir dashboard</a>
+          </article>
+
+          <article class="card reveal">
+            <div class="project-top">
+              <h3>Health Pro</h3>
+              <span class="tag yellow">Saúde</span>
             </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3 class="feature-title">Dados Locais</h3>
-                <p class="feature-desc">Privacidade garantida com armazenamento local no navegador.</p>
-            </div>
+            <p>Painel de rotina, indicadores nutricionais e acompanhamento de hábitos diários.</p>
+            <a class="btn" href="health.html">Abrir plataforma</a>
+          </article>
         </div>
+      </div>
     </section>
 
-    <section class="cta-section">
-        <div class="cta-container">
-            <div class="cta-glow"></div>
-            <h2 class="cta-title">Pronto para experimentar?</h2>
-            <p class="cta-desc">Acesse qualquer uma das aplicações e explore o ecossistema completo.</p>
-            <a href="finance.html" class="btn btn-primary">
-                Iniciar Experiência
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </a>
+    <section id="labs" class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Labs e frentes experimentais</h2>
+          <p class="lead">Exploramos IA aplicada, automação operacional e experiências front-end orientadas à conversão.</p>
         </div>
+
+        <div class="labs-grid">
+          <article class="card reveal">
+            <h3>AI Workflow Ops</h3>
+            <p>Automação de tarefas repetitivas com agentes, integração de ferramentas e governança técnica.</p>
+            <div class="meta"><span>IA aplicada</span><span>Produtividade</span></div>
+          </article>
+          <article class="card reveal">
+            <h3>Conversion Experiments</h3>
+            <p>Hipóteses de UX, testes de copy e otimização de funis de aquisição e ativação.</p>
+            <div class="meta"><span>Growth</span><span>Testes A/B</span></div>
+          </article>
+          <article class="card reveal">
+            <h3>Realtime Interfaces</h3>
+            <p>Experiências interativas em tempo real para painéis, operações e times distribuídos.</p>
+            <div class="meta"><span>WebSockets</span><span>DX</span></div>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="footer-logo">
-                    <div class="logo-icon" style="width: 28px; height: 28px; font-size: 0.875rem;">B</div>
-                    Beaqme
-                </div>
-                <p class="footer-desc">
-                    Ecossistema digital integrado desenvolvido com foco em performance, 
-                    design e experiência do usuário.
-                </p>
-            </div>
-            
-            <div class="footer-col">
-                <h4>Aplicações</h4>
-                <a href="finance.html">Finance</a>
-                <a href="task.html">Task AI</a>
-                <a href="health.html">Health</a>
-            </div>
-            
-            <div class="footer-col">
-                <h4>Recursos</h4>
-                <a href="#">Documentação</a>
-                <a href="#">API</a>
-                <a href="#">Changelog</a>
-            </div>
-            
-            <div class="footer-col">
-                <h4>Conectar</h4>
-                <a href="#">GitHub</a>
-                <a href="#">LinkedIn</a>
-                <a href="#">Twitter</a>
-            </div>
+    <section id="contato" class="section">
+      <div class="container">
+        <div class="cta reveal">
+          <span class="chip" style="width:fit-content;">Roadmap aberto para abril</span>
+          <h2>Se você quer tirar um produto do “quase pronto”, a Beaqme assume a execução.</h2>
+          <p>Entra com contexto de negócio. A gente entra com estratégia, design e engenharia para publicar com qualidade e velocidade.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="https://wa.me/5511970750048" target="_blank" rel="noopener">Agendar conversa</a>
+            <a class="btn btn-secondary" href="https://github.com/cantsixsix" target="_blank" rel="noopener">Ver GitHub</a>
+            <a class="btn" href="https://linkedin.com/in/beaqme" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
         </div>
-        
-        <div class="footer-bottom">
-            <p class="footer-copyright">© 2026 Beaqme. Todos os direitos reservados.</p>
-            <div class="footer-social">
-                <a href="#" class="social-link">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                </a>
-                <a href="#" class="social-link">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg>
-                </a>
-                <a href="#" class="social-link">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </footer>
+      </div>
+    </section>
+  </main>
 
-    <script>
-        // Header scroll effect
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-        
-        // Mobile menu toggle
-        function toggleMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
-        }
-        
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        
-        document.querySelectorAll('.app-card, .feature-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-    </script>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <strong style="font-family:'Fraunces',serif;font-size:1.1rem;">beaqme</strong>
+        <p style="margin-top:6px;color:var(--muted);font-size:.92rem;">Product house focada em construir software útil, escalável e bonito.</p>
+      </div>
+      <div class="footer-links">
+        <a href="task.html">Task</a>
+        <a href="finance.html">Finance</a>
+        <a href="health.html">Health</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, idx) => {
+        if (!entry.isIntersecting) return;
+        setTimeout(() => entry.target.classList.add('in'), idx * 70);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach((el) => observer.observe(el));
+  </script>
 </body>
 </html>

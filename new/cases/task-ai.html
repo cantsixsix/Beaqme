@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case: Task AI Workspace | Beaqme</title>
+    <meta name="description" content="Case study do Task AI Workspace - Board colaborativo com kanban, drag-drop e sprints.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <a href="../index.html" class="logo">Beaq<span class="accent glow">me</span></a>
+    <nav class="desktop-nav">
+        <ul>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="../index.html#cases">Cases</a></li>
+            <li><a href="../blog/">Blog</a></li>
+        </ul>
+        <div class="nav-divider"></div>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema">
+            <span class="icon icon-moon">&#9790;</span>
+            <span class="icon icon-sun">&#9728;</span>
+        </button>
+    </nav>
+    <button class="mobile-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Menu">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </button>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html" onclick="toggleMenu()">Inicio</a>
+    <a href="../index.html#cases" onclick="toggleMenu()">Cases</a>
+    <a href="../blog/" onclick="toggleMenu()">Blog</a>
+</div>
+
+<main>
+    <!-- Hero -->
+    <div class="case-hero">
+        <div class="hero-mesh"></div>
+        <div class="case-tag reveal" style="font-size:.9rem;">SaaS &middot; Produtividade</div>
+        <h1 class="reveal">Task AI Workspace</h1>
+        <p class="reveal">Board colaborativo com fluxo de sprint, priorizacao inteligente e decisoes mais rapidas.</p>
+        <div class="screenshot reveal" style="background:linear-gradient(135deg,#0d0f1f,#1a1f45);">&#9889; Kanban Board Preview</div>
+    </div>
+
+    <!-- Overview -->
+    <section>
+        <div class="case-overview reveal">
+            <div class="case-overview-item">
+                <div class="label">Cliente</div>
+                <div class="value">Produto Interno</div>
+            </div>
+            <div class="case-overview-item">
+                <div class="label">Duracao</div>
+                <div class="value">4 semanas</div>
+            </div>
+            <div class="case-overview-item">
+                <div class="label">Stack</div>
+                <div class="value">Vanilla JS, CSS</div>
+            </div>
+            <div class="case-overview-item">
+                <div class="label">Papel</div>
+                <div class="value">Full-Stack Dev</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- O Problema -->
+    <div class="case-section">
+        <h2 class="reveal">O Problema</h2>
+        <p class="reveal">Ferramentas de gestao de tarefas existentes sao complexas demais para times pequenos. Muitos recursos desnecessarios, curvas de aprendizado longas e dependencia de internet. Precisavamos de algo leve, rapido e que funcionasse offline.</p>
+    </div>
+
+    <!-- A Solucao -->
+    <div class="case-section">
+        <h2 class="reveal">A Solucao</h2>
+        <p class="reveal">Construimos um kanban board minimalista com drag-and-drop nativo, persistencia local via localStorage e organizacao por sprints. Zero dependencias externas, carregamento instantaneo e funciona 100% offline.</p>
+    </div>
+
+    <!-- Features -->
+    <div class="case-section">
+        <h2 class="reveal">Features Principais</h2>
+        <div class="case-features">
+            <div class="case-feature reveal">
+                <div class="icon">&#128203;</div>
+                <h4>Kanban Board</h4>
+                <p>Colunas To Do, In Progress, Review e Done com drag-and-drop nativo.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#9889;</div>
+                <h4>Sprints</h4>
+                <p>Organizacao por ciclos de trabalho com contagem de tarefas por status.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#127919;</div>
+                <h4>Prioridade</h4>
+                <p>Labels de prioridade (Alta, Media, Baixa) com ordenacao automatica.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#128190;</div>
+                <h4>Offline-First</h4>
+                <p>Dados salvos no localStorage. Funciona sem internet.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#127912;</div>
+                <h4>Clean UI</h4>
+                <p>Interface limpa e minimalista inspirada em ferramentas profissionais.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#128270;</div>
+                <h4>Filtros</h4>
+                <p>Filtro por prioridade, busca por titulo e visualizacao por sprint.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resultados -->
+    <div class="case-section">
+        <h2 class="reveal">Resultados</h2>
+        <div class="case-results">
+            <div class="case-result reveal">
+                <span class="number" data-count-up="3" data-suffix="x">0x</span>
+                <span class="label">Mais rapido que alternativas</span>
+            </div>
+            <div class="case-result reveal">
+                <span class="number" data-count-up="60" data-prefix="+" data-suffix="%">0%</span>
+                <span class="label">Aumento de produtividade</span>
+            </div>
+            <div class="case-result reveal">
+                <span class="number" data-count-up="0" data-suffix="ms">0ms</span>
+                <span class="label">Tempo de carregamento</span>
+            </div>
+            <div class="case-result reveal">
+                <span class="number" data-count-up="100" data-suffix="%">0%</span>
+                <span class="label">Funciona offline</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <section>
+        <div class="cta-section reveal">
+            <h2>Quer algo parecido?</h2>
+            <p>Vamos construir uma ferramenta de produtividade sob medida para o seu time.</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/5511970750048" target="_blank" rel="noopener" class="btn btn-white">Falar no WhatsApp</a>
+                <a href="../tools/task.html" class="btn">Testar ferramenta</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nav -->
+    <div class="case-nav">
+        <a href="health-pro.html">&larr; Health Pro</a>
+        <a href="finance-dashboard.html">Finance Dashboard &rarr;</a>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-bottom container">
+        <p>&copy; 2026 Beaqme Development. Feito com cafe e codigo.</p>
+    </div>
+</footer>
+
+<script src="../auth.js"></script>
+<script src="../app.js"></script>
+</body>
+</html>

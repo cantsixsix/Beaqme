@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Dashboard | Beaqme Tools</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .tool-frame{width:100%;height:calc(100vh - 56px);border:none;display:block;}
+        .tool-bar{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:var(--bg-secondary);border-bottom:1px solid var(--border);position:fixed;top:0;left:0;right:0;z-index:100;}
+        .tool-bar .logo{font-size:1.1rem;}
+        .tool-bar-right{display:flex;align-items:center;gap:12px;}
+        .tool-user{font-size:.82rem;color:var(--text-secondary);display:flex;align-items:center;gap:8px;}
+        .tool-user .avatar-circle{width:26px;height:26px;font-size:.7rem;}
+        .tool-wrap{margin-top:56px;}
+    </style>
+</head>
+<body>
+
+<div class="tool-auth-gate" id="authGate">
+    <div>
+        <h2>Acesso restrito</h2>
+        <p>Voce precisa estar logado para acessar o Finance Dashboard.</p>
+        <button class="btn btn-primary" onclick="window.location.href='../index.html?auth=login'">Entrar</button>
+        <div style="margin-top:12px;">
+            <a href="../index.html" style="color:var(--text-muted);font-size:.85rem;">Voltar ao inicio</a>
+        </div>
+    </div>
+</div>
+
+<div id="toolContent" style="display:none;">
+    <div class="tool-bar">
+        <a href="../index.html" class="logo">Beaq<span class="accent">me</span> <span style="color:var(--text-muted);font-weight:400;font-size:.8rem;margin-left:4px;">/ Finance</span></a>
+        <div class="tool-bar-right">
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema" style="width:32px;height:32px;">
+                <span class="icon icon-moon" style="font-size:.9rem;">&#9790;</span>
+                <span class="icon icon-sun" style="font-size:.9rem;">&#9728;</span>
+            </button>
+            <div class="tool-user" id="toolUser"></div>
+            <button class="btn btn-small btn-ghost" onclick="logout();checkAuth();" style="font-size:.78rem;">Sair</button>
+        </div>
+    </div>
+    <div class="tool-wrap">
+        <iframe class="tool-frame" src="../../finance.html" title="Finance Dashboard"></iframe>
+    </div>
+</div>
+
+<script src="../auth.js"></script>
+<script src="../app.js"></script>
+<script>
+function checkAuth() {
+    const s = getSession();
+    if (!s) {
+        document.getElementById('authGate').style.display = 'flex';
+        document.getElementById('toolContent').style.display = 'none';
+    } else {
+        document.getElementById('authGate').style.display = 'none';
+        document.getElementById('toolContent').style.display = 'block';
+        const initial = s.name.charAt(0).toUpperCase();
+        document.getElementById('toolUser').innerHTML =
+            `<div class="avatar-circle user-avatar-c">${initial}</div>
+             <span>${s.name.split(' ')[0]}</span>`;
+    }
+}
+checkAuth();
+</script>
+</body>
+</html>

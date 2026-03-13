@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case: Finance Dashboard | Beaqme</title>
+    <meta name="description" content="Case study do Finance Dashboard - Trading dashboard com dados real-time e graficos interativos.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <a href="../index.html" class="logo">Beaq<span class="accent glow">me</span></a>
+    <nav class="desktop-nav">
+        <ul>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="../index.html#cases">Cases</a></li>
+            <li><a href="../blog/">Blog</a></li>
+        </ul>
+        <div class="nav-divider"></div>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema">
+            <span class="icon icon-moon">&#9790;</span>
+            <span class="icon icon-sun">&#9728;</span>
+        </button>
+    </nav>
+    <button class="mobile-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Menu">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </button>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html" onclick="toggleMenu()">Inicio</a>
+    <a href="../index.html#cases" onclick="toggleMenu()">Cases</a>
+    <a href="../blog/" onclick="toggleMenu()">Blog</a>
+</div>
+
+<main>
+    <div class="case-hero">
+        <div class="hero-mesh"></div>
+        <div class="case-tag reveal" style="font-size:.9rem;">Fintech &middot; Real-Time</div>
+        <h1 class="reveal">Finance Dashboard</h1>
+        <p class="reveal">Dashboard de mercado financeiro com precos ao vivo, graficos interativos e sinais de IA.</p>
+        <div class="screenshot reveal" style="background:linear-gradient(135deg,#0f1115,#1a2035);">&#128200; Trading Dashboard Preview</div>
+    </div>
+
+    <section>
+        <div class="case-overview reveal">
+            <div class="case-overview-item">
+                <div class="label">Cliente</div>
+                <div class="value">Produto Interno</div>
+            </div>
+            <div class="case-overview-item">
+                <div class="label">Duracao</div>
+                <div class="value">6 semanas</div>
+            </div>
+            <div class="case-overview-item">
+                <div class="label">Stack</div>
+                <div class="value">JS, ApexCharts, WebSocket</div>
+            </div>
+            <div class="case-overview-item">
+                <div class="label">Papel</div>
+                <div class="value">Full-Stack Dev</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="case-section">
+        <h2 class="reveal">O Problema</h2>
+        <p class="reveal">Traders e investidores precisam de acesso rapido a dados de mercado em tempo real sem pagar por plataformas caras. A maioria das solucoes gratuitas tem latencia alta, interfaces poluidas e falta de personalizacao.</p>
+    </div>
+
+    <div class="case-section">
+        <h2 class="reveal">A Solucao</h2>
+        <p class="reveal">Desenvolvemos um dashboard de trading com conexao WebSocket direta a Binance API, graficos candlestick interativos com ApexCharts, watchlist customizavel e indicadores tecnicos. Interface dark mode nativa, otimizada para monitoramento prolongado.</p>
+    </div>
+
+    <div class="case-section">
+        <h2 class="reveal">Features Principais</h2>
+        <div class="case-features">
+            <div class="case-feature reveal">
+                <div class="icon">&#128200;</div>
+                <h4>Graficos Real-Time</h4>
+                <p>Candlestick charts com atualizacao em tempo real via WebSocket.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#9889;</div>
+                <h4>WebSocket Live</h4>
+                <p>Conexao direta com Binance para precos ao vivo sem delay.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#128202;</div>
+                <h4>Indicadores</h4>
+                <p>RSI, MACD, Bollinger Bands e medias moveis integrados.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#11088;</div>
+                <h4>Watchlist</h4>
+                <p>Lista de ativos favoritos com variacao e volume em tempo real.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#129302;</div>
+                <h4>Sinais AI</h4>
+                <p>Sugestoes de entrada e saida baseadas em padroes historicos.</p>
+            </div>
+            <div class="case-feature reveal">
+                <div class="icon">&#127761;</div>
+                <h4>Dark Mode Nativo</h4>
+                <p>Interface escura otimizada para uso prolongado e baixa fadiga visual.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="case-section">
+        <h2 class="reveal">Resultados</h2>
+        <div class="case-results">
+            <div class="case-result reveal">
+                <span class="number" data-count-up="40" data-prefix="+" data-suffix="%">0%</span>
+                <span class="label">Conversao de usuarios</span>
+            </div>
+            <div class="case-result reveal">
+                <span class="number" data-count-up="200" data-suffix="ms">0ms</span>
+                <span class="label">Latencia media</span>
+            </div>
+            <div class="case-result reveal">
+                <span class="number" data-count-up="15" data-suffix="+">0+</span>
+                <span class="label">Pares de trading</span>
+            </div>
+            <div class="case-result reveal">
+                <span class="number" data-count-up="24" data-suffix="/7">0/7</span>
+                <span class="label">Monitoramento continuo</span>
+            </div>
+        </div>
+    </div>
+
+    <section>
+        <div class="cta-section reveal">
+            <h2>Quer algo parecido?</h2>
+            <p>Vamos construir um dashboard de dados em tempo real para o seu negocio.</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/5511970750048" target="_blank" rel="noopener" class="btn btn-white">Falar no WhatsApp</a>
+                <a href="../tools/finance.html" class="btn">Testar ferramenta</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="case-nav">
+        <a href="task-ai.html">&larr; Task AI Workspace</a>
+        <a href="health-pro.html">Health Pro &rarr;</a>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-bottom container">
+        <p>&copy; 2026 Beaqme Development. Feito com cafe e codigo.</p>
+    </div>
+</footer>
+
+<script src="../auth.js"></script>
+<script src="../app.js"></script>
+</body>
+</html>

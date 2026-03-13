@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Beaqme</title>
+    <meta name="description" content="Artigos sobre desenvolvimento, design, IA e estrategia de produto pela Beaqme.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>B</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <a href="../index.html" class="logo">Beaq<span class="accent glow">me</span></a>
+    <nav class="desktop-nav">
+        <ul>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="../index.html#cases">Cases</a></li>
+            <li><a href="./" style="color:var(--brand-secondary);">Blog</a></li>
+            <li><a href="../index.html#contato">Contato</a></li>
+        </ul>
+        <div class="nav-divider"></div>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema">
+            <span class="icon icon-moon">&#9790;</span>
+            <span class="icon icon-sun">&#9728;</span>
+        </button>
+    </nav>
+    <button class="mobile-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Menu">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </button>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html" onclick="toggleMenu()">Inicio</a>
+    <a href="../index.html#cases" onclick="toggleMenu()">Cases</a>
+    <a href="./" onclick="toggleMenu()" style="color:var(--brand-secondary);">Blog</a>
+    <a href="../index.html#contato" onclick="toggleMenu()">Contato</a>
+</div>
+
+<main>
+    <div class="blog-header">
+        <h1 class="reveal">Blog Beaqme</h1>
+        <p class="reveal">Artigos sobre desenvolvimento, design, IA e estrategia de produto.</p>
+    </div>
+
+    <div class="blog-list">
+        <!-- Article 1 -->
+        <article class="blog-article reveal" id="art-1">
+            <span class="tag">Dev</span>
+            <h2>Como estruturar um design system do zero</h2>
+            <p>Um design system bem construido e a base para escalar qualquer produto digital com consistencia. Neste artigo, exploramos como definir tokens de design (cores, espacamentos, tipografia), criar componentes reutilizaveis e documentar tudo para que o time consiga manter a consistencia visual mesmo com o produto crescendo.</p>
+            <p>Comecamos pelos tokens: variaveis CSS que centralizam decisoes visuais. Em vez de hardcodar #7c3aed em 50 lugares, definimos --brand-primary uma vez. Isso nao e so organizacao, e estrategia. Quando o cliente pede para mudar a cor principal, voce altera uma linha.</p>
+            <p>Depois vem os componentes: botoes, cards, inputs, modais. Cada um com variacoes previsiveis (primary, outline, ghost) e estados claros (hover, focus, disabled). A documentacao viva, gerada a partir do proprio codigo, garante que ninguem reinvente a roda.</p>
+            <p>O resultado? Times que lancam features 3x mais rapido com metade dos bugs visuais. Design systems nao sao overhead — sao investimento.</p>
+            <div class="meta">10 Mar 2026 &middot; 5 min de leitura</div>
+        </article>
+
+        <!-- Article 2 -->
+        <article class="blog-article reveal" id="art-2">
+            <span class="tag" style="background:rgba(6,182,212,.1);color:var(--brand-secondary);">AI</span>
+            <h2>IA aplicada a produtos reais: por onde comecar</h2>
+            <p>IA nao precisa ser um projeto de 6 meses com um time de PhDs. Neste artigo, mostramos como integrar LLMs (Large Language Models) em produtos existentes de forma pratica e incremental, sem over-engineering.</p>
+            <p>O primeiro passo e identificar tarefas repetitivas que seus usuarios fazem todos os dias: classificar emails, resumir documentos, gerar relatorios, responder perguntas frequentes. Essas sao as oportunidades de maior ROI para IA.</p>
+            <p>Na pratica, integramos a API da OpenAI em um fluxo de atendimento ao cliente. O resultado: 70% das perguntas respondidas automaticamente com 94% de satisfacao. O custo? Menos de R$200/mes em API calls.</p>
+            <p>A chave e comecar pequeno: um unico endpoint que recebe texto e retorna uma classificacao ou resumo. Nada de RAG complexo no dia 1. Itere com dados reais, meça o impacto e expanda gradualmente.</p>
+            <div class="meta">5 Mar 2026 &middot; 7 min de leitura</div>
+        </article>
+
+        <!-- Article 3 -->
+        <article class="blog-article reveal" id="art-3">
+            <span class="tag" style="background:rgba(232,93,31,.1);color:var(--brand-accent);">Design</span>
+            <h2>Dark mode nao e so inverter cores</h2>
+            <p>Muitos devs implementam dark mode simplesmente invertendo preto e branco. O resultado? Interfaces com contraste errado, cores vibrantes que agridem os olhos e componentes que parecem "estranhos" no tema escuro.</p>
+            <p>Dark mode de verdade exige repensar toda a hierarquia visual. Superficies mais elevadas ficam mais claras (nao mais escuras). Sombras precisam ser mais sutis. Cores saturadas devem ser reduzidas em luminosidade para evitar o efeito "neon".</p>
+            <p>Na pratica, usamos CSS custom properties com dois conjuntos de valores: um para light e outro para dark. A transicao entre temas usa transition: all 0.3s para suavidade. E respeitamos prefers-color-scheme do sistema como default, salvando a escolha manual no localStorage.</p>
+            <p>Bonus: glassmorphism funciona melhor em dark mode. backdrop-filter: blur() com backgrounds semi-transparentes cria profundidade elegante que e dificil de replicar em temas claros.</p>
+            <div class="meta">28 Fev 2026 &middot; 4 min de leitura</div>
+        </article>
+
+        <!-- Article 4 -->
+        <article class="blog-article reveal" id="art-4">
+            <span class="tag">Dev</span>
+            <h2>Vanilla JS ainda faz sentido em 2026?</h2>
+            <p>Com React, Vue, Svelte e dezenas de frameworks disputando atencao, escrever JavaScript puro parece antiquado. Mas em muitos cenarios, Vanilla JS e a escolha mais inteligente.</p>
+            <p>Para landing pages, portfolios, ferramentas internas e prototipos, um framework adiciona complexidade sem beneficio real. Build tools, node_modules, bundlers, hydration — tudo isso para renderizar 3 secoes de HTML?</p>
+            <p>No Beaqme, nossas ferramentas (Task, Finance, Health) sao 100% Vanilla JS. O resultado: zero dependencias, carregamento instantaneo, manutenção simples e performance maxima. Cada ferramenta e um unico arquivo HTML que funciona em qualquer lugar.</p>
+            <p>A regra e simples: use framework quando precisar de state management complexo, routing SPA ou componentizacao pesada. Para todo o resto, HTML + CSS + JS puro resolve com menos codigo, menos bugs e mais velocidade.</p>
+            <div class="meta">20 Fev 2026 &middot; 6 min de leitura</div>
+        </article>
+    </div>
+</main>
+
+<footer class="site-footer" style="margin-top:80px;">
+    <div class="footer-bottom container">
+        <p>&copy; 2026 Beaqme Development. Feito com cafe e codigo.</p>
+    </div>
+</footer>
+
+<script src="../auth.js"></script>
+<script src="../app.js"></script>
+</body>
+</html>
